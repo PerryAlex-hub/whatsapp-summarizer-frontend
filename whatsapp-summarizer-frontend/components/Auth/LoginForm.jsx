@@ -29,8 +29,11 @@ export default function LoginForm() {
     setError('');
 
     try {
+      console.log('Logging in...');
       const response = await authAPI.login(formData);
       const { token, user } = response.data;
+
+      console.log('Login successful:', user);
 
       // Save token and user
       setToken(token);
@@ -39,6 +42,7 @@ export default function LoginForm() {
       // Redirect to dashboard
       router.push('/dashboard');
     } catch (err) {
+      console.error('Login error:', err);
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
@@ -69,7 +73,7 @@ export default function LoginForm() {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
               placeholder="Enter your username"
               required
             />
@@ -84,7 +88,7 @@ export default function LoginForm() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
               placeholder="Enter your password"
               required
             />
